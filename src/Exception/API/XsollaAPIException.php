@@ -14,7 +14,7 @@ class XsollaAPIException extends XsollaException
     ];
 
     protected static $messageTemplate =
-<<<'EOF'
+    <<<'EOF'
 Xsolla API Error Response:
 
 Previous Exception:
@@ -39,8 +39,8 @@ EOF;
         $message = sprintf(
             static::$messageTemplate,
             $previous->getMessage(),
-            str($previous->getRequest()),
-            str($previous->getResponse())
+            $previous->getRequest()->getBody()->getContents(),
+            $previous->getResponse()->getBody()->getContents()
         );
         if (array_key_exists($statusCode, static::$exceptions)) {
             return new static::$exceptions[$statusCode]($message, 0, $previous);
